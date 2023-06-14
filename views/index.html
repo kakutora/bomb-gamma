@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/game">リンク</a>
+    <div>
+        待機所1
+        <form action="" id="form">
+            <input type="text" id="name">
+            <button type="submit" id="btn">待機所に入室</button>
+        </form>
+    </div>
+    <script src="/io/socket.io.min.js"></script>
+    <script>
+        const socket = io('/');
+
+        const form = document.querySelector('#form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let name = document.querySelector('#name').value;
+            socket.emit('join', name);
+        });
+
+        socket.on('data', (data) => {
+            console.log(data);
+            console.log(socket.id);
+        });
+    </script>
+</body>
+
+</html>
